@@ -101,3 +101,46 @@ export async function addWord(name: string): Promise<Word> {
     throw error;
   }
 }
+
+// Add multiple words separated by commas
+export async function addMultipleWords(input: string): Promise<Word[]> {
+  try {
+    if (!input.trim()) {
+      return [];
+    }
+
+    const words = getWordsFromStorage();
+    const entries = input
+      .split(",")
+      .map((entry) => entry.trim())
+      .filter((entry) => entry !== "");
+    const newWords: Word[] = [];
+
+    // Get the next available ID
+    let nextId = words.length > 0 ? Math.max(...words.map((w) => w.id)) + 1 : 1;
+
+    // Process each entry
+    for (const entry of entries) {
+      // Skip empty entries
+      if (entry === "") continue;
+
+      // Capitalize the input before saving
+      const capitalizedName = capitalizeWords(entry);
+
+      // Create a new word
+      const newWord = { id: nextId++, name: capitalizedName };
+
+      // Add to our arrays
+      newWords.push(newWord);
+      words.push(newWord);
+    }
+
+    // Save all words
+    saveWordsToStorage(words);
+
+    return newWords;
+  } catch (error) {
+    console.error("Error adding multiple words:", error);
+    throw error;
+  }
+}
