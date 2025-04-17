@@ -132,12 +132,6 @@ export default function Home() {
               selected: word.id === randomWord.id,
             }))
           );
-
-          // Reset after 5 seconds
-          setTimeout(() => {
-            setMessage("On Your Mark, Get Set");
-            setSelectedWord(null);
-          }, 5000);
         }, shuffleDuration + 100);
       }
     } catch (error) {
