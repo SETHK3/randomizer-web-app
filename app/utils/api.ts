@@ -19,7 +19,17 @@ function getWordsFromStorage(): Word[] {
     return initialWords; // Return initial data during SSR
   }
 
-  // Always start with an empty array regardless of what's in localStorage
+  // Try to get existing words from localStorage
+  const storedWords = localStorage.getItem("wordBank");
+  if (storedWords) {
+    try {
+      return JSON.parse(storedWords);
+    } catch (error) {
+      console.error("Error parsing stored words:", error);
+    }
+  }
+
+  // Initialize with empty array if no valid data found
   localStorage.setItem("wordBank", JSON.stringify(initialWords));
   return initialWords;
 }

@@ -41,6 +41,15 @@ export default function Home() {
     }
   };
 
+  const handleClearWords = () => {
+    setWords([]);
+    // Clear both localStorage items to ensure data is fully reset
+    localStorage.removeItem("wordBank");
+    localStorage.removeItem("savedWords");
+    setMessage("On Your Mark, Get Set");
+    setSelectedWord(null);
+  };
+
   const handleAddWord = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newWord.trim()) return;
@@ -139,7 +148,7 @@ export default function Home() {
 
   return (
     <div className="flex h-screen w-screen">
-      <Sidebar students={words} />
+      <Sidebar students={words} onClearAll={handleClearWords} />
 
       <div className="w-4/5 h-full flex flex-col justify-start items-center bg-gray-800 text-white font-press-start">
         <div className="mt-10 mb-20">
@@ -158,7 +167,7 @@ export default function Home() {
                 type="text"
                 value={newWord}
                 onChange={(e) => setNewWord(e.target.value)}
-                className="border-2 border-gray-400 px-3 py-2 w-full font-kdam text-base"
+                className="border-2 border-gray-400 px-3 py-2 w-full font-kdam text-base text-black"
                 placeholder="Enter anything you want to add"
                 disabled={addingWord}
                 autoFocus
@@ -197,9 +206,11 @@ export default function Home() {
           <button
             onClick={handleSelectRandomWord}
             className={`w-48 h-12 flex items-center justify-center bg-white border-2 border-black text-lg font-press-start text-black hover:text-blue-50 hover:bg-purple-500 cursor-pointer ${
-              isShuffling ? "opacity-50 cursor-not-allowed" : ""
+              isShuffling || words.length === 0
+                ? "opacity-50 cursor-not-allowed"
+                : ""
             }`}
-            disabled={isShuffling}
+            disabled={isShuffling || words.length === 0}
           >
             Pick !!!
           </button>
