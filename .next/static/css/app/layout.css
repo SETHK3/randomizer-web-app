@@ -592,14 +592,17 @@ video {
 .w-4\/5 {
   width: 80%;
 }
-.w-48 {
-  width: 12rem;
+.w-56 {
+  width: 14rem;
 }
 .w-full {
   width: 100%;
 }
 .w-screen {
   width: 100vw;
+}
+.w-64 {
+  width: 16rem;
 }
 .max-w-md {
   max-width: 28rem;
@@ -616,6 +619,9 @@ video {
 .flex-col {
   flex-direction: column;
 }
+.items-start {
+  align-items: flex-start;
+}
 .items-center {
   align-items: center;
 }
@@ -628,8 +634,14 @@ video {
 .justify-between {
   justify-content: space-between;
 }
+.self-start {
+  align-self: flex-start;
+}
 .overflow-y-auto {
   overflow-y: auto;
+}
+.whitespace-nowrap {
+  white-space: nowrap;
 }
 .break-words {
   overflow-wrap: break-word;
@@ -709,6 +721,9 @@ video {
 }
 .text-left {
   text-align: left;
+}
+.text-center {
+  text-align: center;
 }
 .font-kdam {
   font-family: "Kdam Thmor Pro", sans-serif;

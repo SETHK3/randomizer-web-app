@@ -145,14 +145,21 @@ export default function Home() {
       <Sidebar students={words} onClearAll={handleClearWords} />
 
       <div className="w-4/5 h-full flex flex-col justify-start items-center bg-gray-800 text-white font-press-start">
-        <div className="mt-10 mb-20">
-          <h1 className="text-2xl">Random Select Generator</h1>
+        <div className="mt-10 mb-20 text-center">
+          <h1 className="text-2xl">Pick Me Generator</h1>
+          <h2 className="text-sm text-center">(Randomizer)</h2>
         </div>
 
         <div className="w-full max-w-md mb-20">
-          <form onSubmit={handleAddWord} className="flex flex-col items-center">
-            <label htmlFor="new-word" className="mb-2 text-sm">
-              Add anything to Selection Bank:
+          <form
+            onSubmit={handleAddWord}
+            className="flex flex-col items-start w-full"
+          >
+            <label
+              htmlFor="new-word"
+              className="mb-2 text-xs whitespace-nowrap self-start"
+            >
+              Add anything to the Pick Me Bank:
             </label>
             <div className="flex w-full">
               <input
@@ -199,14 +206,14 @@ export default function Home() {
         <div className="mt-4">
           <button
             onClick={handleSelectRandomWord}
-            className={`w-48 h-12 flex items-center justify-center bg-white border-2 border-black text-lg font-press-start text-black hover:text-blue-50 hover:bg-purple-500 cursor-pointer ${
+            className={`w-64 h-12 flex items-center justify-center bg-white border-2 border-black text-lg font-press-start text-black hover:text-blue-50 hover:bg-purple-500 cursor-pointer ${
               isShuffling || words.length === 0
                 ? "opacity-50 cursor-not-allowed"
                 : ""
             }`}
             disabled={isShuffling || words.length === 0}
           >
-            Pick !!!
+            Randomize !!!
           </button>
         </div>
       </div>

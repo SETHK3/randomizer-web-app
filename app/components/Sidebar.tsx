@@ -15,7 +15,7 @@ export default function Sidebar({ students, onClearAll }: SidebarProps) {
     <div className="w-1/5 h-full bg-sidebar-blue flex flex-col justify-between font-kdam">
       <div className="w-full flex h-full flex-col p-5">
         <div className="w-full mb-5 border-b-2 border-white pb-2.5 text-left pl-4 flex justify-between items-center">
-          <h2 className="text-white">Selection Bank</h2>
+          <h2 className="text-white">Pick Me Bank</h2>
           <button
             onClick={onClearAll}
             className="bg-red-600 text-white px-2 py-0.5 text-xs rounded hover:bg-red-700"
