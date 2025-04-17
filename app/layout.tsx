@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Random Select Generator",
@@ -31,6 +32,13 @@ export default function RootLayout({
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        />
+        {/* Google AdSense initialization */}
+        <Script
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4303032405106237"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+          async
         />
       </head>
       <body>{children}</body>
