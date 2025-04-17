@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+}
+
+@layer components {
+  .selected {
+    @apply bg-blue-50;
+  }
+}
+
+/* Ensure placeholder text has the same font as inputs */
+::placeholder {
+  font-family: inherit;
+}
+
+/* Firefox */
+::-moz-placeholder {
+  font-family: inherit;
+}
+
+/* Edge */
+::-ms-input-placeholder {
+  font-family: inherit;
+}
+
+/* Loading dots styles */
+.loading-dots {
+  min-width: 3rem;
+  display: inline-block;
+  text-align: left;
+  vertical-align: bottom;
+  height: 1.5rem;
+}
+
+/* Shuffle animation colors */
+.shuffle-text-0 {
+  color: #ff5252; /* Red */
+}
+
+.shuffle-text-1 {
+  color: #ffeb3b; /* Yellow */
+}
+
+.shuffle-text-2 {
+  color: #4caf50; /* Green */
+}
+
+.shuffle-text-3 {
+  color: #2196f3; /* Blue */
+}
+
+.shuffle-text-4 {
+  color: #9c27b0; /* Purple */
+}
+
+/* Animation for the text shuffle */
+@keyframes textPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.shuffle-animate {
+  animation: textPop 0.3s ease;
+}

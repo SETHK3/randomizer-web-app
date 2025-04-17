@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Student Generator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles/index.css" />
+  </head>
+  <body>
+    <div class="page-container">
+      <div class="sidebar-wrapper">
+        <div class="student-list-wrapper">
+          <div class="list-header">
+            <h2>Contestants</h2>
+          </div>
+          <div class="student-list">
+            <p>Ian</p>
+            <p>Jake</p>
+            <p>Tyler</p>
+            <p>Mckay</p>
+            <p>Seth G</p>
+            <p>Seth B</p>
+            <p>Cameron</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="main-body-container">
+        <div class="main-title">
+          <h1>Random Student Generator</h1>
+        </div>
+        <div class="generic-message">
+          <h2>On Your Mark, Get Set<span class="loading-dots">...</span></h2>
+        </div>
+        <div class="shuffle-btn">
+          <button onclick="selectRandomStudent()">GO !!!</button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="index.js"></script>
+</html>

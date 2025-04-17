@@ -1,0 +1,84 @@
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+}
+
+.selected {
+  background-color: aliceblue;
+}
+
+.page-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+.page-container .sidebar-wrapper {
+  height: 100%;
+  width: 20%;
+  background-color: #2f88b5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: "Kdam Thmor Pro", sans-serif;
+}
+.page-container .sidebar-wrapper .student-list-wrapper {
+  width: 100%;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  padding: 20px;
+}
+.page-container .sidebar-wrapper .student-list-wrapper .list-header {
+  width: calc(100% - 40px);
+  margin-bottom: 20px;
+  border-bottom: 2px solid whitesmoke;
+  padding-bottom: 10px;
+  text-align: center;
+}
+.page-container .sidebar-wrapper .student-list-wrapper .student-list {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.page-container .sidebar-wrapper h2 {
+  color: whitesmoke;
+}
+.page-container .sidebar-wrapper p {
+  padding-left: 80px;
+  margin: 20px 0;
+  color: goldenrod;
+}
+.page-container .main-body-container {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: gainsboro;
+  font-family: "Press Start 2P";
+}
+.page-container .main-body-container .main-title {
+  margin-top: 40px;
+  margin-bottom: 350px;
+}
+.page-container .main-body-container button {
+  width: 200px;
+  height: 50px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #000;
+  font-size: 20px;
+  font-family: "Press Start 2P";
+  color: #000;
+}
+.page-container .main-body-container button:hover {
+  cursor: pointer;
+  color: azure;
+  background-color: mediumorchid;
+}/*# sourceMappingURL=index.css.map */

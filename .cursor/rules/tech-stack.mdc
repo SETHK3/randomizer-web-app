@@ -1,0 +1,12 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Technical stack
+
+- Python for the backend
+- html, tailwindcss, javascript, next.js configuration for the frontend
+- SQL databases, never JSON file storage
+- Separate databases for dev, test, and prod
+- Python tests
