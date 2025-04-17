@@ -167,7 +167,7 @@ export default function Home() {
             >
               <label
                 htmlFor="new-word"
-                className="mb-1 text-xs whitespace-nowrap self-start"
+                className="form-label mb-1 text-xs whitespace-nowrap self-start"
               >
                 Add anything to the Pick Me Bank:
               </label>
@@ -219,14 +219,14 @@ export default function Home() {
           <div className="w-full flex justify-center items-center py-3 mb-4 mobile-order-button">
             <button
               onClick={handleSelectRandomWord}
-              className={`mobile-pick-button w-64 h-12 flex items-center justify-center bg-white border-2 border-black text-lg font-press-start text-black hover:text-blue-50 hover:bg-purple-500 cursor-pointer ${
+              className={`mobile-pick-button randomize-btn w-80 h-12 flex items-center justify-center bg-white border-2 border-black text-lg font-press-start text-black hover:text-blue-50 hover:bg-purple-500 cursor-pointer ${
                 isShuffling || words.length === 0
                   ? "opacity-50 cursor-not-allowed"
                   : ""
               }`}
               disabled={isShuffling || words.length === 0}
             >
-              {hasRandomized ? "Pick Again" : "Pick"}
+              {hasRandomized ? "Randomize Again" : "Randomize"}
             </button>
           </div>
 
@@ -234,14 +234,14 @@ export default function Home() {
           <div className="desktop-button-container hidden md:flex justify-center items-center py-3 mt-4">
             <button
               onClick={handleSelectRandomWord}
-              className={`desktop-pick-button w-64 h-12 flex items-center justify-center bg-white border-2 border-black text-lg font-press-start text-black hover:text-blue-50 hover:bg-purple-500 cursor-pointer ${
+              className={`desktop-pick-button randomize-btn w-80 h-12 flex items-center justify-center bg-white border-2 border-black text-lg font-press-start text-black hover:text-blue-50 hover:bg-purple-500 cursor-pointer ${
                 isShuffling || words.length === 0
                   ? "opacity-50 cursor-not-allowed"
                   : ""
               }`}
               disabled={isShuffling || words.length === 0}
             >
-              {hasRandomized ? "Pick Again" : "Pick"}
+              {hasRandomized ? "Randomize Again" : "Randomize"}
             </button>
           </div>
         </div>

@@ -278,6 +278,13 @@ main,
     max-height: none !important;
     height: calc(100vh - 100px) !important;
   }
+
+  /* Ensure buttons have proper width on tablets */
+  .mobile-pick-button,
+  .desktop-pick-button {
+    width: auto !important;
+    min-width: 280px !important;
+  }
 }
 
 /* Large Screens (Laptops) and Extra Large Screens (Desktops) */
@@ -362,14 +369,12 @@ main,
     margin-bottom: 0.5rem;
   }
 
-  /* Adjust button size */
-  .w-64 {
-    width: 14rem;
-  }
-
-  /* Ensure sidebar content is visible */
-  .flex-grow.flex.flex-col.overflow-y-auto {
-    max-height: 160px !important;
+  /* Adjust button size for the wider randomize text */
+  .mobile-pick-button,
+  .desktop-pick-button {
+    width: auto !important;
+    min-width: 230px !important;
+    max-width: 90% !important;
   }
 
   /* Mobile order classes for mobile landscape */
@@ -383,6 +388,40 @@ main,
 
   .mobile-order-button {
     order: 3;
+  }
+}
+
+/* Extra Small to Small Mobile (320px to 425px) */
+@media (min-width: 320px) and (max-width: 425px) {
+  /* Layout adjustments for the input form */
+  .w-full.max-w-md {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 0.5rem;
+  }
+
+  /* Adjust input field and button for better small screen layout */
+  #new-word {
+    min-width: 0;
+    flex: 1;
+  }
+
+  /* Slightly wider buttons for small mobile screens */
+  .randomize-btn {
+    width: auto !important;
+    min-width: 260px !important; /* Further increased width */
+    max-width: 95% !important;
+    padding: 0 0.75rem;
+    font-size: 0.95rem !important;
+  }
+
+  /* Ensure content is properly centered */
+  .mobile-order-button {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 }
 
@@ -429,10 +468,14 @@ main,
     padding: 0 0.5rem;
   }
 
-  /* Smaller buttons */
-  .w-64 {
-    width: 12rem;
+  /* Default button sizing for smaller mobile screens (except those covered by more specific media queries) */
+  .mobile-pick-button,
+  .desktop-pick-button {
+    width: auto !important;
+    min-width: 200px !important;
+    max-width: 90% !important;
     margin-bottom: 0.5rem;
+    font-size: 0.9rem !important;
   }
 
   .h-12 {
@@ -493,5 +536,63 @@ main,
   /* Ensure content stretches to full height */
   .flex.flex-1.overflow-hidden {
     height: calc(100vh - 60px) !important; /* Account for header/footer */
+  }
+}
+
+/* Shared randomize button styles */
+.randomize-btn {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding: 0 0.75rem;
+}
+
+/* Specific styles for very small mobile screens (375px and below) */
+@media (max-width: 375px) {
+  /* Smaller font size for the form label to prevent horizontal scroll */
+  .form-label {
+    font-size: 0.65rem !important;
+    letter-spacing: -0.02em;
+    white-space: normal !important;
+    max-width: 100%;
+  }
+
+  /* Adjust form spacing */
+  .w-full.max-w-md {
+    padding: 0 0.25rem;
+  }
+
+  /* Make form elements more compact */
+  input,
+  button {
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+
+  /* Reduce side padding on the add button */
+  form button {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+}
+
+/* Even smaller screens at 320px - further adjustments */
+@media (max-width: 320px) {
+  .form-label {
+    font-size: 0.6rem !important;
+    font-weight: normal;
+    letter-spacing: -0.03em;
+  }
+
+  /* Tighten up the form layout even more */
+  .w-full.max-w-md {
+    padding: 0 0.2rem;
+  }
+
+  /* Make the Add button more compact */
+  form button {
+    min-width: auto !important;
+    padding-left: 0.4rem !important;
+    padding-right: 0.4rem !important;
   }
 }
