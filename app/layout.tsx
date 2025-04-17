@@ -38,7 +38,6 @@ export default function RootLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4303032405106237"
           strategy="afterInteractive"
           crossOrigin="anonymous"
-          async
         />
       </head>
       <body>{children}</body>
