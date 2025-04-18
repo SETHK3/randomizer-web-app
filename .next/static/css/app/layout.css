@@ -1405,6 +1405,68 @@ main,
     padding-right: 0.4rem !important;
   }
 }
+
+/* Word grid layout for mobile screens */
+@media (max-width: 767px) {
+  /* Ensure sidebar has proper height on mobile */
+  .mobile-order-sidebar {
+    min-height: 200px !important;
+  }
+
+  /* Allow sidebar content to scroll properly */
+  .sidebar-content {
+    overflow-y: auto;
+    max-height: 180px;
+  }
+
+  /* Two column grid for Pick Me Bank on mobile */
+  .word-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    padding: 0.5rem;
+    justify-content: center;
+    align-items: start;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* Style for individual word items */
+  .word-item {
+    text-align: center;
+    margin: 0.25rem !important;
+    padding: 0.5rem !important;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.5rem;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+            hyphens: auto;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  /* Selected word item styling */
+  .word-item.selected {
+    background-color: #3b82f6 !important;
+    color: white;
+  }
+}
+
+/* Even smaller screens - adjust grid to maintain readability */
+@media (max-width: 374px) {
+  .word-grid {
+    gap: 0.25rem;
+    padding: 0.25rem;
+  }
+
+  .word-item {
+    font-size: 0.7rem !important;
+    padding: 0.35rem !important;
+    min-height: 2rem;
+  }
+}
 .hover\:bg-blue-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity, 1));

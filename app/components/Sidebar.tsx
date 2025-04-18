@@ -25,22 +25,24 @@ export default function Sidebar({ students, onClearAll }: SidebarProps) {
         </div>
 
         <div
-          className="sidebar-content flex-grow flex flex-col overflow-y-auto"
+          className="sidebar-content flex-grow overflow-y-auto"
           style={{
             minHeight: "120px",
           }}
         >
           {students && students.length > 0 ? (
-            students.map((word, index) => (
-              <p
-                key={word.id || index}
-                className={`pl-2 pr-2 py-1 my-1 text-student-gold break-words text-sm ${
-                  word.selected ? "selected bg-blue-900 rounded" : ""
-                }`}
-              >
-                {word.name}
-              </p>
-            ))
+            <div className="word-grid flex flex-col md:block">
+              {students.map((word, index) => (
+                <p
+                  key={word.id || index}
+                  className={`word-item pl-2 pr-2 py-1 my-1 text-student-gold break-words text-sm ${
+                    word.selected ? "selected bg-blue-900 rounded" : ""
+                  }`}
+                >
+                  {word.name}
+                </p>
+              ))}
+            </div>
           ) : (
             <p className="pl-2 my-2 text-white text-sm">
               No selections in bank yet
