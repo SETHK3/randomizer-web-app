@@ -12,10 +12,10 @@ export default function Sidebar({ students, onClearAll }: SidebarProps) {
   console.log("Sidebar received words:", students);
 
   return (
-    <div className="w-1/5 h-full bg-sidebar-blue flex flex-col justify-between font-kdam">
-      <div className="w-full flex h-full flex-col p-5">
-        <div className="w-full mb-5 border-b-2 border-white pb-2.5 text-left pl-4 flex justify-between items-center">
-          <h2 className="text-white">Pick Me Bank</h2>
+    <div className="w-full h-full bg-sidebar-blue flex flex-col font-kdam overflow-hidden">
+      <div className="w-full flex flex-col p-2 h-full">
+        <div className="w-full mb-2 border-b-2 border-white pb-1 text-left pl-2 flex justify-between items-center">
+          <h2 className="text-white text-sm md:text-base">Pick Me Bank</h2>
           <button
             onClick={onClearAll}
             className="bg-red-600 text-white px-2 py-0.5 text-xs rounded hover:bg-red-700"
@@ -24,20 +24,29 @@ export default function Sidebar({ students, onClearAll }: SidebarProps) {
           </button>
         </div>
 
-        <div className="flex-grow flex flex-col overflow-y-auto">
+        <div
+          className="sidebar-content flex-grow overflow-y-auto"
+          style={{
+            minHeight: "120px",
+          }}
+        >
           {students && students.length > 0 ? (
-            students.map((word, index) => (
-              <p
-                key={word.id || index}
-                className={`pl-4 pr-2 py-2 my-2 text-student-gold break-words ${
-                  word.selected ? "selected bg-blue-900 rounded" : ""
-                }`}
-              >
-                {word.name}
-              </p>
-            ))
+            <div className="word-grid flex flex-col md:block">
+              {students.map((word, index) => (
+                <p
+                  key={word.id || index}
+                  className={`word-item pl-2 pr-2 py-1 my-1 text-student-gold break-words text-sm ${
+                    word.selected ? "selected bg-blue-900 rounded" : ""
+                  }`}
+                >
+                  {word.name}
+                </p>
+              ))}
+            </div>
           ) : (
-            <p className="pl-4 my-5 text-white">No selections in bank yet</p>
+            <p className="pl-2 my-2 text-white text-sm">
+              No selections in bank yet
+            </p>
           )}
         </div>
       </div>

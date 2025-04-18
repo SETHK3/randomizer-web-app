@@ -2,11 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global Reset to Eliminate Whitespace */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html,
 body {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #1f2937; /* Add dark background color to prevent white showing */
+}
+
+/* Fix common overflow issues */
+#__next,
+main,
+.main-container {
+  min-height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Mobile order classes for reordering components */
+.mobile-order-sidebar {
+  order: 0;
+}
+
+.mobile-order-main {
+  order: 0;
+}
+
+.mobile-order-button {
+  order: 0;
 }
 
 @layer components {
@@ -42,37 +74,586 @@ body {
 /* Shuffle animation colors */
 .shuffle-text-0 {
   color: #ff5252; /* Red */
+  text-shadow: 0 0 8px rgba(255, 82, 82, 0.6);
 }
 
 .shuffle-text-1 {
   color: #ffeb3b; /* Yellow */
+  text-shadow: 0 0 8px rgba(255, 235, 59, 0.6);
 }
 
 .shuffle-text-2 {
   color: #4caf50; /* Green */
+  text-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
 }
 
 .shuffle-text-3 {
   color: #2196f3; /* Blue */
+  text-shadow: 0 0 8px rgba(33, 150, 243, 0.6);
 }
 
 .shuffle-text-4 {
   color: #9c27b0; /* Purple */
+  text-shadow: 0 0 8px rgba(156, 39, 176, 0.6);
 }
 
 /* Animation for the text shuffle */
 @keyframes textPop {
   0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
     transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.shuffle-animate {
+  animation: textPop 0.3s ease;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+/* Final selection highlight effect */
+@keyframes finalSelection {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.15);
   }
   50% {
     transform: scale(1.1);
+  }
+  75% {
+    transform: scale(1.05);
   }
   100% {
     transform: scale(1);
   }
 }
 
-.shuffle-animate {
-  animation: textPop 0.3s ease;
+.final-selection {
+  animation: finalSelection 0.8s ease-out;
+}
+
+/* ===== RESPONSIVE STYLES ===== */
+
+/* Remove unwanted whitespace */
+.flex.h-screen.w-screen {
+  min-height: 100vh;
+  max-width: 100vw;
+  padding: 0;
+  margin: 0;
+}
+
+.w-4\/5,
+.w-1\/5 {
+  padding: 0;
+}
+
+/* Extra Large Screens (Desktops) */
+@media (min-width: 1280px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .main-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Reset mobile ordering for desktop */
+  .mobile-order-sidebar,
+  .mobile-order-main,
+  .mobile-order-button {
+    order: 0;
+  }
+
+  .flex.flex-1.overflow-hidden {
+    flex-direction: row;
+  }
+
+  /* Ensure proper sidebar/main content widths */
+  .md\:w-1\/5 {
+    width: 20%;
+  }
+
+  .md\:w-4\/5 {
+    width: 80%;
+  }
+}
+
+/* Large Screens (Laptops) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  h1 {
+    font-size: 2.25rem;
+  }
+
+  .main-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Reset mobile ordering for laptop */
+  .mobile-order-sidebar,
+  .mobile-order-main,
+  .mobile-order-button {
+    order: 0;
+  }
+
+  .flex.flex-1.overflow-hidden {
+    flex-direction: row;
+  }
+
+  /* Ensure proper sidebar/main content widths */
+  .md\:w-1\/5 {
+    width: 20%;
+  }
+
+  .md\:w-4\/5 {
+    width: 80%;
+  }
+}
+
+/* Medium Screens (Tablets) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  /* Reset flex direction for tablets */
+  .flex.flex-1.overflow-hidden {
+    flex-direction: row !important;
+  }
+
+  /* Reset mobile ordering for tablet */
+  .mobile-order-sidebar,
+  .mobile-order-main,
+  .mobile-order-button {
+    order: 0 !important;
+  }
+
+  /* Ensure proper sidebar/main content widths */
+  .md\:w-1\/5 {
+    width: 30% !important;
+    min-height: auto !important;
+    height: 100% !important;
+    background-color: #2563eb; /* sidebar-blue */
+  }
+
+  .md\:w-4\/5 {
+    width: 70% !important;
+  }
+
+  /* Adjust main content spacing */
+  .mt-10.mb-20 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  /* For tablet view, show mobile button and hide desktop button */
+  .mobile-order-button {
+    display: flex !important; /* Show mobile version on tablet */
+    margin-top: 2rem !important; /* Move it up from the bottom */
+    margin-bottom: 2rem !important;
+  }
+
+  /* Hide desktop button on tablet explicitly */
+  .desktop-button-container {
+    display: none !important;
+  }
+
+  /* Ensure sidebar content is visible with proper height */
+  .flex-grow.flex.flex-col.overflow-y-auto {
+    max-height: none !important;
+    height: calc(100vh - 100px) !important;
+  }
+
+  /* Ensure buttons have proper width on tablets */
+  .mobile-pick-button,
+  .desktop-pick-button {
+    width: auto !important;
+    min-width: 280px !important;
+  }
+}
+
+/* Large Screens (Laptops) and Extra Large Screens (Desktops) */
+@media (min-width: 1024px) {
+  /* Hide the mobile-order-button on larger screens */
+  .mobile-order-button {
+    display: none !important;
+  }
+
+  /* Show desktop button on larger screens */
+  .desktop-button-container {
+    display: flex !important;
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
+  }
+
+  /* Structure for full-height sidebar */
+  .flex.flex-1.overflow-hidden {
+    height: calc(100vh - 60px) !important; /* Account for header/footer ads */
+    min-height: 600px;
+  }
+
+  /* Ensure sidebar fills the viewport height */
+  .mobile-order-sidebar {
+    height: 100% !important;
+    min-height: 100% !important;
+  }
+
+  /* Ensure sidebar's children also respect the full height */
+  .mobile-order-sidebar > div {
+    height: 100% !important;
+  }
+
+  /* Ensure sidebar content container fills available height */
+  .mobile-order-sidebar .w-full.h-full {
+    height: 100% !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Allow sidebar content to take full available height */
+  .sidebar-content {
+    flex-grow: 1;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+  }
+}
+
+/* Small Screens (Mobile Landscape) */
+@media (min-width: 480px) and (max-width: 767px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1rem;
+  }
+
+  /* Stack layout vertically */
+  .flex.h-screen.w-screen {
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .w-1\/5 {
+    width: 100%;
+    height: auto;
+    min-height: 180px;
+    background-color: #2563eb; /* sidebar-blue */
+  }
+
+  .w-4\/5 {
+    width: 100%;
+    flex-grow: 1;
+  }
+
+  /* Compact spacing */
+  .mt-10.mb-20 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Adjust button size for the wider randomize text */
+  .mobile-pick-button,
+  .desktop-pick-button {
+    width: auto !important;
+    min-width: 230px !important;
+    max-width: 90% !important;
+  }
+
+  /* Mobile order classes for mobile landscape */
+  .mobile-order-sidebar {
+    order: 2;
+  }
+
+  .mobile-order-main {
+    order: 1;
+  }
+
+  .mobile-order-button {
+    order: 3;
+  }
+}
+
+/* Extra Small to Small Mobile (320px to 425px) */
+@media (min-width: 320px) and (max-width: 425px) {
+  /* Layout adjustments for the input form */
+  .w-full.max-w-md {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 0.5rem;
+  }
+
+  /* Adjust input field and button for better small screen layout */
+  #new-word {
+    min-width: 0;
+    flex: 1;
+  }
+
+  /* Slightly wider buttons for small mobile screens */
+  .randomize-btn {
+    width: auto !important;
+    min-width: 260px !important; /* Further increased width */
+    max-width: 95% !important;
+    padding: 0 0.75rem;
+    font-size: 0.95rem !important;
+  }
+
+  /* Ensure content is properly centered */
+  .mobile-order-button {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* Extra Small Screens (Mobile Portrait) */
+@media (max-width: 479px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 0.875rem;
+  }
+
+  /* Stack layout vertically */
+  .flex.h-screen.w-screen,
+  .flex.flex-1.overflow-hidden {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    width: 100vw;
+  }
+
+  .w-1\/5 {
+    width: 100%;
+    height: auto;
+    min-height: 150px;
+    background-color: #2563eb; /* sidebar-blue */
+  }
+
+  .w-4\/5 {
+    width: 100%;
+    flex-grow: 1;
+  }
+
+  /* More compact spacing */
+  .mt-10.mb-20 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Adjust form elements */
+  .w-full.max-w-md {
+    max-width: 100%;
+    padding: 0 0.5rem;
+  }
+
+  /* Default button sizing for smaller mobile screens (except those covered by more specific media queries) */
+  .mobile-pick-button,
+  .desktop-pick-button {
+    width: auto !important;
+    min-width: 200px !important;
+    max-width: 90% !important;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem !important;
+  }
+
+  .h-12 {
+    height: 2.5rem;
+  }
+
+  /* Ensure sidebar content is visible */
+  .flex-grow.flex.flex-col.overflow-y-auto {
+    max-height: 130px !important;
+  }
+
+  /* Mobile order classes for mobile portrait */
+  .mobile-order-sidebar {
+    order: 2 !important;
+  }
+
+  .mobile-order-main {
+    order: 1 !important;
+  }
+
+  .mobile-order-button {
+    order: 3 !important;
+  }
+}
+
+/* Fix height issues on mobile */
+@media (max-height: 700px) {
+  .h-screen {
+    height: 100%;
+    min-height: 100vh;
+  }
+
+  .w-1\/5 {
+    min-height: 120px;
+  }
+}
+
+@media (min-width: 768px) {
+  /* Tablet */
+  .mobile-order-button {
+    position: relative;
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+/* Desktop screens */
+@media (min-width: 1024px) {
+  .mobile-order-button {
+    display: none !important;
+  }
+
+  .desktop-button-container {
+    display: flex !important;
+  }
+
+  /* Ensure content stretches to full height */
+  .flex.flex-1.overflow-hidden {
+    height: calc(100vh - 60px) !important; /* Account for header/footer */
+  }
+}
+
+/* Shared randomize button styles */
+.randomize-btn {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding: 0 0.75rem;
+}
+
+/* Specific styles for very small mobile screens (375px and below) */
+@media (max-width: 375px) {
+  /* Smaller font size for the form label to prevent horizontal scroll */
+  .form-label {
+    font-size: 0.65rem !important;
+    letter-spacing: -0.02em;
+    white-space: normal !important;
+    max-width: 100%;
+  }
+
+  /* Adjust form spacing */
+  .w-full.max-w-md {
+    padding: 0 0.25rem;
+  }
+
+  /* Make form elements more compact */
+  input,
+  button {
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+
+  /* Reduce side padding on the add button */
+  form button {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+}
+
+/* Even smaller screens at 320px - further adjustments */
+@media (max-width: 320px) {
+  .form-label {
+    font-size: 0.6rem !important;
+    font-weight: normal;
+    letter-spacing: -0.03em;
+  }
+
+  /* Tighten up the form layout even more */
+  .w-full.max-w-md {
+    padding: 0 0.2rem;
+  }
+
+  /* Make the Add button more compact */
+  form button {
+    min-width: auto !important;
+    padding-left: 0.4rem !important;
+    padding-right: 0.4rem !important;
+  }
+}
+
+/* Word grid layout for mobile screens */
+@media (max-width: 767px) {
+  /* Ensure sidebar has proper height on mobile */
+  .mobile-order-sidebar {
+    min-height: 200px !important;
+  }
+
+  /* Allow sidebar content to scroll properly */
+  .sidebar-content {
+    overflow-y: auto;
+    max-height: 180px;
+  }
+
+  /* Two column grid for Pick Me Bank on mobile */
+  .word-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    padding: 0.5rem;
+    justify-content: center;
+    align-items: start;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* Style for individual word items */
+  .word-item {
+    text-align: center;
+    margin: 0.25rem !important;
+    padding: 0.5rem !important;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.5rem;
+    word-break: break-word;
+    hyphens: auto;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  /* Selected word item styling */
+  .word-item.selected {
+    background-color: #3b82f6 !important;
+    color: white;
+  }
+}
+
+/* Even smaller screens - adjust grid to maintain readability */
+@media (max-width: 374px) {
+  .word-grid {
+    gap: 0.25rem;
+    padding: 0.25rem;
+  }
+
+  .word-item {
+    font-size: 0.7rem !important;
+    padding: 0.35rem !important;
+    min-height: 2rem;
+  }
 }
