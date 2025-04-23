@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { LoadingDots, Sidebar, AdUnit } from "./components";
+import { LoadingDots, Sidebar, AdUnit, MinimalContent } from "./components";
 import { Word, getStudents, getRandomStudent, addWord } from "./utils/api";
+import Link from "next/link";
 
 export default function Home() {
   const [words, setWords] = useState<Word[]>([]);
@@ -141,7 +142,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col h-screen w-screen overflow-hidden p-0 m-0 bg-gray-800">
-      {/* Header Ad */}
+      {/* Header Ad - Always show header ad with minimum content safety */}
       <AdUnit
         adSlot="header"
         className="w-full flex justify-center py-1 bg-gray-900"
@@ -244,10 +245,13 @@ export default function Home() {
               {hasRandomized ? "Randomize Again" : "Randomize"}
             </button>
           </div>
+
+          {/* Display minimal content when word list is empty */}
+          {words.length === 0 && <MinimalContent />}
         </div>
       </div>
 
-      {/* Sidebar Ad - displays on the right side on desktop, hidden on mobile */}
+      {/* Sidebar Ad - Only show on desktop */}
       <div className="hidden md:block absolute right-1 top-1/4">
         <AdUnit adSlot="sidebar" />
       </div>
@@ -257,6 +261,16 @@ export default function Home() {
         adSlot="footer"
         className="w-full flex justify-center py-1 bg-gray-900"
       />
+
+      {/* Privacy Policy Link */}
+      <div className="w-full bg-gray-900 text-center py-2">
+        <Link
+          href="/privacy-policy"
+          className="text-xs text-gray-400 hover:text-white"
+        >
+          Privacy Policy
+        </Link>
+      </div>
     </div>
   );
 }

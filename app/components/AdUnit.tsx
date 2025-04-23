@@ -34,14 +34,19 @@ export default function AdUnit({ adSlot, className = "" }: AdUnitProps) {
 
   return (
     <div className={`ad-container ${className}`}>
-      <ins
-        className="adsbygoogle"
-        style={{ display: "block" }}
-        data-ad-client={adConfig.publisherId}
-        data-ad-slot={slotConfig.slot}
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      />
+      <div className="text-xs text-gray-400 text-center mb-1">
+        Advertisement
+      </div>
+      <div className="ad-wrapper" style={{ minHeight: "60px" }}>
+        <ins
+          className="adsbygoogle"
+          style={{ display: "block" }}
+          data-ad-client={adConfig.publisherId}
+          data-ad-slot={slotConfig.slot}
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        />
+      </div>
     </div>
   );
 }
