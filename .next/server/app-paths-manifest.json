@@ -1,4 +1,4 @@
 {
-  "/randomizer/page": "app/randomizer/page.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/randomizer/page": "app/randomizer/page.js"
 }

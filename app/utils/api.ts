@@ -144,3 +144,15 @@ export async function addMultipleWords(input: string): Promise<Word[]> {
     throw error;
   }
 }
+
+// Delete a word by ID
+export async function deleteWord(id: number): Promise<void> {
+  try {
+    const words = getWordsFromStorage();
+    const updatedWords = words.filter((word) => word.id !== id);
+    saveWordsToStorage(updatedWords);
+  } catch (error) {
+    console.error("Error deleting word:", error);
+    throw error;
+  }
+}

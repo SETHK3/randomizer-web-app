@@ -2,7 +2,13 @@
 
 import { useState, useEffect, useRef } from "react";
 import { LoadingDots, Sidebar, AdUnit, MinimalContent } from "../components";
-import { Word, getStudents, getRandomStudent, addWord } from "../utils/api";
+import {
+  Word,
+  getStudents,
+  getRandomStudent,
+  addWord,
+  deleteWord,
+} from "../utils/api";
 import Link from "next/link";
 
 export default function Randomizer() {
@@ -125,6 +131,15 @@ export default function Randomizer() {
     }
   };
 
+  const handleDeleteItem = async (id: number) => {
+    try {
+      await deleteWord(id);
+      await fetchWords(); // Refresh the word list
+    } catch (error) {
+      console.error("Error deleting word:", error);
+    }
+  };
+
   return (
     <div className="flex flex-col h-screen w-screen overflow-hidden p-0 m-0 bg-gray-800">
       <AdUnit
@@ -134,7 +149,11 @@ export default function Randomizer() {
 
       <div className="flex flex-1 overflow-hidden flex-col md:flex-row">
         <div className="w-full md:w-1/5 mobile-order-sidebar">
-          <Sidebar students={words} onClearAll={handleClearWords} />
+          <Sidebar
+            students={words}
+            onClearAll={handleClearWords}
+            onDeleteItem={handleDeleteItem}
+          />
         </div>
 
         <div className="w-full md:w-4/5 flex flex-col justify-start items-center bg-gray-800 text-white font-press-start overflow-y-auto mobile-order-main">

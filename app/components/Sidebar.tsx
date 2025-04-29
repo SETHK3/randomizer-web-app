@@ -6,9 +6,14 @@ import { Word } from "../utils/api";
 interface SidebarProps {
   students: Word[];
   onClearAll: () => void;
+  onDeleteItem: (id: number) => void;
 }
 
-export default function Sidebar({ students, onClearAll }: SidebarProps) {
+export default function Sidebar({
+  students,
+  onClearAll,
+  onDeleteItem,
+}: SidebarProps) {
   console.log("Sidebar received words:", students);
 
   return (
@@ -33,14 +38,22 @@ export default function Sidebar({ students, onClearAll }: SidebarProps) {
           {students && students.length > 0 ? (
             <div className="word-grid flex flex-col md:block">
               {students.map((word, index) => (
-                <p
+                <div
                   key={word.id || index}
-                  className={`word-item pl-2 pr-2 py-1 my-1 text-student-gold break-words text-sm ${
-                    word.selected ? "selected bg-blue-900 rounded" : ""
+                  className={`word-item-container group relative pl-2 pr-2 py-1 my-1 rounded transition-colors duration-200 ${
+                    word.selected ? "bg-blue-900" : "hover:bg-blue-800/50"
                   }`}
                 >
-                  {word.name}
-                </p>
+                  <p className="text-student-gold break-words text-sm">
+                    {word.name}
+                  </p>
+                  <button
+                    onClick={() => onDeleteItem(word.id)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:text-red-700"
+                  >
+                    ×
+                  </button>
+                </div>
               ))}
             </div>
           ) : (
