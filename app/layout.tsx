@@ -6,6 +6,13 @@ import { Analytics } from "@vercel/analytics/react";
 export const metadata: Metadata = {
   title: "Random Select Generator",
   description: "An application to randomly select from a word bank",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: { url: "/apple-touch-icon.png" },
+  },
 };
 
 export default function RootLayout({
