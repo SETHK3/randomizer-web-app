@@ -102,7 +102,12 @@ export default function Randomizer() {
   const handleLoadSavedList = (listName: string) => {
     const list = savedLists[listName];
     if (list) {
-      setWords(list);
+      const wordsWithSelection = list.map((word) => ({
+        ...word,
+        selected: false,
+      }));
+      setWords(wordsWithSelection);
+      localStorage.setItem("wordBank", JSON.stringify(wordsWithSelection));
       setMessage("On Your Mark, Get Set");
       setSelectedWord(null);
       setHasRandomized(false);
@@ -126,14 +131,29 @@ export default function Randomizer() {
   const fetchWords = async () => {
     try {
       const data = await getStudents();
-      setWords(
-        data.results.map((word: Word) => ({
-          ...word,
-          selected: false,
-        }))
-      );
+      const wordsWithSelection = data.results.map((word: Word) => ({
+        ...word,
+        selected: false,
+      }));
+      setWords(wordsWithSelection);
+      localStorage.setItem("wordBank", JSON.stringify(wordsWithSelection));
     } catch (error) {
       console.error("Error fetching words:", error);
+      const storedWords = localStorage.getItem("wordBank");
+      if (storedWords) {
+        try {
+          const parsedWords = JSON.parse(storedWords);
+          setWords(
+            parsedWords.map((word: Word) => ({ ...word, selected: false }))
+          );
+        } catch (e) {
+          console.error("Error parsing stored words:", e);
+          setWords([]);
+          localStorage.removeItem("wordBank");
+        }
+      } else {
+        setWords([]);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -146,6 +166,7 @@ export default function Randomizer() {
     setMessage("On Your Mark, Get Set");
     setSelectedWord(null);
     setHasRandomized(false);
+    setTimeout(() => fetchWords(), 0);
   };
 
   const handleAddWord = async (e: React.FormEvent) => {
@@ -154,9 +175,14 @@ export default function Randomizer() {
 
     try {
       setAddingWord(true);
-      await addWord(newWord.trim());
+      const addedWord = await addWord(newWord.trim());
       setNewWord("");
-      await fetchWords();
+
+      setWords((prevWords) => {
+        const updatedWords = [...prevWords, { ...addedWord, selected: false }];
+        localStorage.setItem("wordBank", JSON.stringify(updatedWords));
+        return updatedWords;
+      });
 
       setTimeout(() => {
         if (inputRef.current) {
@@ -165,6 +191,7 @@ export default function Randomizer() {
       }, 0);
     } catch (error) {
       console.error("Error adding word:", error);
+      await fetchWords();
     } finally {
       setAddingWord(false);
     }
@@ -222,16 +249,23 @@ export default function Randomizer() {
   const handleDeleteItem = async (id: number) => {
     try {
       await deleteWord(id);
-      await fetchWords(); // Refresh the word list
+      setWords((prevWords) => {
+        const updatedWords = prevWords.filter((word) => word.id !== id);
+        localStorage.setItem("wordBank", JSON.stringify(updatedWords));
+        return updatedWords;
+      });
     } catch (error) {
       console.error("Error deleting word:", error);
+      await fetchWords();
     }
   };
 
   const handleSaveList = (name: string) => {
-    const newSavedLists = { ...savedLists, [name]: words };
+    const currentWords = words.map((word) => ({ ...word, selected: false }));
+    const newSavedLists = { ...savedLists, [name]: currentWords };
     setSavedLists(newSavedLists);
     localStorage.setItem("savedLists", JSON.stringify(newSavedLists));
+    localStorage.setItem("wordBank", JSON.stringify(currentWords));
   };
 
   return (
