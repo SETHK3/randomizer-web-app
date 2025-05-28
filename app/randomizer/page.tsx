@@ -7,6 +7,7 @@ import {
   AdUnit,
   MinimalContent,
   SaveModal,
+  ContactModal,
 } from "../components";
 import {
   Word,
@@ -80,6 +81,7 @@ export default function Randomizer() {
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
   const [listToDelete, setListToDelete] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isContactModalOpen, setIsContactModalOpen] = useState<boolean>(false);
 
   // Shuffle animation settings
   const shuffleSpeed = 100; // ms between shuffles
@@ -285,11 +287,31 @@ export default function Randomizer() {
         </div>
 
         <div className="w-full md:w-4/5 flex flex-col justify-start items-center bg-gray-800 text-white font-press-start overflow-y-auto mobile-order-main">
-          <div className="mt-4 mb-4 text-center">
+          <div className="mt-4 mb-4 text-center relative w-full">
             <h1 className="text-2xl">Randomizer Tool</h1>
             <p className="text-sm text-gray-400 mt-2">
               Add items and let the randomizer pick one for you!
             </p>
+            <button
+              onClick={() => setIsContactModalOpen(true)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-purple-500 hover:bg-purple-600 text-white p-2 rounded-full transition-colors"
+              title="Contact Us"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 transform rotate-45"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                />
+              </svg>
+            </button>
           </div>
 
           <div className="w-full max-w-md mb-6 px-4">
@@ -443,6 +465,11 @@ export default function Randomizer() {
             }}
             onConfirm={confirmDeleteList}
             listName={listToDelete}
+          />
+
+          <ContactModal
+            isOpen={isContactModalOpen}
+            onClose={() => setIsContactModalOpen(false)}
           />
         </div>
       </div>
