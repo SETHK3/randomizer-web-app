@@ -21,6 +21,48 @@ interface SavedList {
   [key: string]: Word[];
 }
 
+interface DeleteConfirmationModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  listName: string;
+}
+
+function DeleteConfirmationModal({
+  isOpen,
+  onClose,
+  onConfirm,
+  listName,
+}: DeleteConfirmationModalProps) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-gray-800 p-6 rounded-lg w-full max-w-md">
+        <h2 className="text-xl font-bold mb-4 text-white">Delete List</h2>
+        <p className="text-white mb-6">
+          Are you sure you want to delete "{listName}"? This action cannot be
+          undone.
+        </p>
+        <div className="flex justify-end gap-2">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={onConfirm}
+            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Randomizer() {
   const [words, setWords] = useState<Word[]>([]);
   const [message, setMessage] = useState<string>("On Your Mark, Get Set");
@@ -35,6 +77,8 @@ export default function Randomizer() {
   const [hasRandomized, setHasRandomized] = useState<boolean>(false);
   const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false);
   const [savedLists, setSavedLists] = useState<SavedList>({});
+  const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
+  const [listToDelete, setListToDelete] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Shuffle animation settings
@@ -66,10 +110,17 @@ export default function Randomizer() {
   };
 
   const handleDeleteSavedList = (listName: string) => {
+    setListToDelete(listName);
+    setDeleteModalOpen(true);
+  };
+
+  const confirmDeleteList = () => {
     const newSavedLists = { ...savedLists };
-    delete newSavedLists[listName];
+    delete newSavedLists[listToDelete];
     setSavedLists(newSavedLists);
     localStorage.setItem("savedLists", JSON.stringify(newSavedLists));
+    setDeleteModalOpen(false);
+    setListToDelete("");
   };
 
   const fetchWords = async () => {
@@ -304,7 +355,9 @@ export default function Randomizer() {
             </button>
           </div>
 
-          {words.length === 0 && <MinimalContent />}
+          {words.length === 0 && Object.keys(savedLists).length === 0 && (
+            <MinimalContent />
+          )}
 
           {/* Saved Lists Container */}
           {Object.keys(savedLists).length > 0 && (
@@ -346,6 +399,16 @@ export default function Randomizer() {
             isOpen={isSaveModalOpen}
             onClose={() => setIsSaveModalOpen(false)}
             onSave={handleSaveList}
+          />
+
+          <DeleteConfirmationModal
+            isOpen={deleteModalOpen}
+            onClose={() => {
+              setDeleteModalOpen(false);
+              setListToDelete("");
+            }}
+            onConfirm={confirmDeleteList}
+            listName={listToDelete}
           />
         </div>
       </div>
