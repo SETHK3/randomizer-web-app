@@ -1,3 +1,5 @@
 {
-  "/api/contact/route": "app/api/contact/route.js"
+  "/not-found": "app/not-found.js",
+  "/page": "app/page.js",
+  "/randomizer/page": "app/randomizer/page.js"
 }

@@ -1,11 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { AdUnit } from "./components";
+import { useState } from "react";
+import { AdUnit, ContactModal } from "./components";
 
 export default function Home() {
+  const [isContactModalOpen, setIsContactModalOpen] = useState<boolean>(false);
+
   return (
-    <div className="min-h-screen bg-gray-800 text-white">
+    <div className="min-h-screen bg-gray-800 text-white font-press-start">
       {/* Header Ad */}
       <AdUnit
         adSlot="header"
@@ -129,6 +132,34 @@ export default function Home() {
           </Link>
         </div>
       </div>
+
+      {/* Contact Button */}
+      <button
+        onClick={() => setIsContactModalOpen(true)}
+        className="fixed bottom-4 right-4 text-purple-500 hover:text-purple-400 transition-colors shadow-lg"
+        title="Contact Us"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-8 w-8 transform rotate-45"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+          />
+        </svg>
+      </button>
+
+      {/* Contact Modal */}
+      <ContactModal
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+      />
     </div>
   );
 }
